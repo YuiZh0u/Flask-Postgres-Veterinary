@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Editar Laboratorio</h2>
+        <form role="form"  action="/laboratorio/{{laboratorio[0]}}" method="post" enctype="application/x-www-form-urlencoded">
+            <div class="form-group row">
+                    <label for="IDLab" class="col-sm-2 col-form-label">ID</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="IDLab" value="{{laboratorio[0]}}">
+                    </div>
+                  </div>
+            <div class="form-group row">
+                    <label for="NombreLab" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="NombreLab" value="{{laboratorio[1]}}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                        <label for="FonoLab" class="col-sm-2 col-form-label">Teléfono</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="FonoLab" value="{{laboratorio[3]}}">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                            <label for="DireccionLab" class="col-sm-2 col-form-label">Dirección</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" name="DireccionLab" value="{{laboratorio[2]}}">
+                            </div>
+                          </div>
+            <button type="submit" class="btn btn-success">Editar</button>
+            </form>
+  </div>
+{% endblock %}

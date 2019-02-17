@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Agregar Pedido</h2>
+        <form role="form"  action="/agregarpedido" method="post" enctype="application/x-www-form-urlencoded">
+          <!-- Formulario Laboratorio -->
+          <h4>Laboratorio</h4>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="isCliente" name ="ELCLI" value="hola"checked onchange="toggleDisable(this);">
+            <label class="custom-control-label" for="isCliente">Laboratorio ya existe</label>
+          </div>
+          <script>
+          function toggleDisable(checkbox) {
+            var toggle = document.getElementById("FormularioCliente");
+            checkbox.checked ? toggle.disabled = true : toggle.disabled = false;
+            var toggle2 = document.getElementById("LabID");
+            checkbox.checked ? toggle2.disabled = false : toggle2.disabled = true;
+          }
+
+          window.onload = function() {
+	          toggleDisable(document.getElementById('isCliente'));
+          }
+          </script>
+          <fieldset id="LabID">
+          <div class="form-group row">
+            <label for="IDLab" class="col-sm-2 col-form-label">ID Laboratorio</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="IDLab" placeholder="ID">
+            </div>
+          </div>
+          </fieldset>
+          <fieldset id="FormularioCliente">
+          <div class="form-group row">
+            <label for="NombreLab" class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="NombreLab" placeholder="Laboratorio Perrunos">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="FonoLab" class="col-sm-2 col-form-label">Número de Teléfono</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="FonoLab" placeholder="224353134">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="DireccionLab" class="col-sm-2 col-form-label">Dirección</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="DireccionLab" placeholder="Av. Manuel Montt 1340">
+            </div>
+          </div>
+          </fieldset>
+          <h4>Pedido</h4>
+          <div class="form-group row">
+            <label for="FechaPedido" class="col-sm-2 col-form-label">Fecha de Pedido</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="FechaPedido">
+            </div>
+          </div>
+          <script>
+          var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            
+            if(dd<10) {
+                dd = '0'+dd
+            } 
+            
+            if(mm<10) {
+                mm = '0'+mm
+            } 
+            
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("FechaPedido").value = today;</script>
+            <div class="form-group row">
+              <label for="CodMedicamento" class="col-sm-2 col-form-label">Código Medicamento</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="CodMedicamento" placeholder="23940320894">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success">Agregar</button>
+            </form>
+  </div>
+{% endblock %}

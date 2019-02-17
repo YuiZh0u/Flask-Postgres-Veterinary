@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Pedidos <a class="btn btn-success" href="/agregarpedido" role="button">Agregar venta</a></h2>
+        <!-- filtros-->
+        <p>
+          <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Filtrar por
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample" style="margin-bottom: 10px;">
+          <div class="card card-body" style="width: 100%;">
+              <!-- aqui empieza-->
+              <form role="form"  action="/formularios" method="post" enctype="application/x-www-form-urlencoded">
+                  <div class="form-row">
+                          <div class="form-group col-md-2">
+                                  <label for="CodigoMed">Código</label>
+                                  <input type="text" class="form-control" id="CodigoMed" onkeyup="myFunction()" placeholder="Código de medicamento">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="NombreMed">Medicamento</label>
+                                    <input type="text" class="form-control" id="NombreMed" onkeyup="myFunction2()" placeholder="Nombre del medicamento">
+                                  </div>
+                                  <div class="form-group col-md-2">
+                                    <label for="NombreLab">Laboratorio</label>
+                                    <input type="text" class="form-control" id="NombreLab" onkeyup="myFunction3()" placeholder="Nombre del laboratorio">
+                                  </div>
+                                  <div class="form-group col-md-2">
+                                    <label for="FechaPedido">Fecha de Pedido</label>
+                                    <select id="FechaPedido" onchange="myFunction4()" class="form-control">
+                                      <option selected>Elegir</option>
+                                      {%for fecha in fechas%}
+                                      <option value="{{fecha[0]}}">{{fecha[0]}}</option>
+                                      {%endfor%}
+                                    </select>
+                                  </div>
+                              </div>
+                          </div>
+                  </form>
+              <!-- aqui termina -->
+          </div>
+        </div>
+        <!-- filtros -->
+    <table class="table table-striped table-hover table-bordered" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">ID Laboratorio</th>
+            <th scope="col">Código Medicamento</th>
+            <th scope="col">Fecha de Pedido</th>
+            <th scope="col">Medicamento</th>
+            <th scope="col">Laboratorio</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for pedido in suministra%}
+          <tr>
+            <td>{{pedido[0]}}</td>
+            <td>{{pedido[1]}}</td>
+            <td>{{pedido[2]}}</td>
+            <td>{{pedido[3]}}</td>
+            <td>{{pedido[4]}}</td>
+            <td align="center"><a href="/pedidoborrar/{{pedido[0]}}/{{pedido[1]}}"><img src="static/images/cancel-music.png" alt="Eliminar" height="16" width="16"></a> 
+                </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+  </div>
+  <script>
+    function myFunction() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("CodigoMed");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction2() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("NombreMed");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction3() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("NombreLab");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[4];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction4() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("FechaPedido");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    </script>
+{% endblock %}

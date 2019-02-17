@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Mascotas <a class="btn btn-success" href="/agregarmascota" role="button">Agregar mascota</a></h2>
+        <!-- filtros-->
+        <p>
+            <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Filtrar por
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample" style="margin-bottom: 10px;">
+            <div class="card card-body" style="width: 90%;">
+                <!-- aqui empieza-->
+                <form role="form"  action="/mascotas" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-row">
+                            <div class="form-group col-md-2">
+                                    <label for="NombreMascota">Nombre</label>
+                                    <input type="text" class="form-control" id="NombreMascota" onkeyup="myFunction()" placeholder="Nombre de la mascota">
+                                  </div>
+                                  <div class="form-group col-md-2">
+                                        <label for="TipoMascota">Tipo</label>
+                                        <select id="TipoMascota" onchange="myFunction2()" class="form-control">
+                                          <option selected>Elegir</option>
+                                          <option value="Perro">Perro</option>
+                                          <option value="Gato">Gato</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group col-md-2">
+                                            <label for="SexoMascota">Sexo</label>
+                                            <select id="SexoMascota" onchange="myFunction3()" class="form-control">
+                                              <option selected>Elegir</option>
+                                              <option value="Hembra">Hembra</option>
+                                              <option value="Macho">Macho</option>
+                                            </select>
+                                          </div>
+                                <div class="form-group col-md-2">
+                                    <label for="RazaMascota">Raza</label>
+                                    <input type="text" class="form-control" id="RazaMascota" onkeyup="myFunction4()" placeholder="Raza de la mascota">
+                                  </div>
+                                          <div class="form-group col-md-2">
+                                                <label for="NombreDueno">Dueño</label>
+                                                <input type="text" class="form-control" id="NombreDueno" onkeyup="myFunction5()" placeholder="Nombre del Dueño">
+                                              </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="FechaRegistro">Fecha de Registro</label>
+                                            <select id="FechaRegistro" onchange="myFunction6()" class="form-control">
+                                              <option selected>Elegir</option>
+                                              {%for fecha in fechas%}
+                                              <option value="{{fecha[0]}}">{{fecha[0]}}</option>
+                                              {%endfor%}
+                                            </select>
+                                          </div>
+                                </div>
+                    </form>
+                <!-- aqui termina -->
+            </div>
+          </div>
+          <!-- filtros -->
+    <table class="table table-striped table-hover table-bordered" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">Raza</th>
+            <th scope="col">Fecha Registro</th>
+            <th scope="col">Dueño</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for mascota in mascotas%}
+          <tr>
+            <td>{{mascota[0]}}</td>
+            <td>{{mascota[1]}}</td>
+            <td>{{mascota[2]}}</td>
+            <td>{{mascota[3]}}</td>
+            <td>{{mascota[4]}}</td>
+            <td>{{mascota[5]}}</td>
+            <td>{{mascota[6]}}</td>
+            <td align="center"><a href="/visita/{{mascota[0]}}"><img src="static/images/lupa.png" alt="Ver historial de visitas" height="16" width="16"></a>
+                <a href="/mascota/{{mascota[0]}}"><img src="static/images/edit-draw-pencil.png" alt="Editar" height="16" width="16"></a>
+                <a href="/mascotaborrar/{{mascota[0]}}"><img src="static/images/cancel-music.png" alt="Eliminar" height="16" width="16"></a> 
+                </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+  </div>
+  <script>
+    function myFunction() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("NombreMascota");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction2() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("TipoMascota");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction3() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("SexoMascota");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction4() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("RazaMascota");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[4];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction5() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("NombreDueno");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[6];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction6() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("FechaRegistro");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[5];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+  </script>
+{% endblock %}

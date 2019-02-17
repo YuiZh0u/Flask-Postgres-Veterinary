@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Agregar Visita</h2>
+        <form role="form"  action="/agregarvisita" method="post" enctype="application/x-www-form-urlencoded">
+            <div class="form-group row">
+                    <label for="RUTCliente" class="col-sm-2 col-form-label">RUT</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="RUTCliente" placeholder="112233-5">
+                    </div>
+                  </div>
+            <div class="form-group row">
+                    <label for="IDMascota" class="col-sm-2 col-form-label">ID Mascota</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="IDMascota" placeholder="1">
+                    </div>
+                  </div>
+                <div class="form-group row">
+              <label for="IDServicio" class="col-sm-2 col-form-label">ID del Servicio Entregado</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="IDServicio" placeholder="1">
+              </div>
+            </div>
+                  
+          <div class="form-group row">
+            <label for="FechaRegistro" class="col-sm-2 col-form-label">Fecha de Atención</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="FechaRegistro">
+            </div>
+          </div>
+          <script>
+          var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            
+            if(dd<10) {
+                dd = '0'+dd
+            } 
+            
+            if(mm<10) {
+                mm = '0'+mm
+            } 
+            
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("FechaRegistro").value = today;</script>
+            <div class="form-group row">
+              <label for="DescAtencion" class="col-sm-2 col-form-label">Descripción</label>
+              <div class="col-sm-10">
+                <textarea type="text" class="form-control" name="DescAtencion" placeholder="Descripción de la atención" rows="3"></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success">Agregar</button>
+            </form>
+  </div>
+{% endblock %}

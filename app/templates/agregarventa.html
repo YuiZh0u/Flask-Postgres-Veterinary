@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Agregar Venta</h2>
+        <form role="form"  action="/agregarventa" method="post" enctype="application/x-www-form-urlencoded">
+          <!-- Formulario Cliente -->
+          <h4>Cliente</h4>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="isCliente" name ="ELCLI" value="hola"checked onchange="toggleDisable(this);">
+            <label class="custom-control-label" for="isCliente">Cliente ya existe</label>
+          </div>
+          <script>
+          function toggleDisable(checkbox) {
+            var toggle = document.getElementById("FormularioCliente");
+            checkbox.checked ? toggle.disabled = true : toggle.disabled = false;
+          }
+
+          window.onload = function() {
+	          toggleDisable(document.getElementById('isCliente'));
+          }
+          </script>
+          <div class="form-group row">
+            <label for="RUTCliente" class="col-sm-2 col-form-label">RUT</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="RUTCliente" placeholder="11222333-5">
+            </div>
+          </div>
+          <fieldset id="FormularioCliente">
+          <div class="form-group row">
+            <label for="NombreCliente" class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="NombreCliente" placeholder="John Teaborta">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="MailCliente" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="mail" class="form-control" name="MailCliente" placeholder="ejemplo@ejemplo.com">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="FonoCliente" class="col-sm-2 col-form-label">Número de Teléfono</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="FonoCliente" placeholder="993259201">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="DirecciónCliente" class="col-sm-2 col-form-label">Dirección</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="DirecciónCliente" placeholder="Av. Ossa 1870 Depto 12">
+            </div>
+          </div>
+          </fieldset>
+          <h4>Venta</h4>
+          <div class="form-group row">
+            <label for="FechaCompra" class="col-sm-2 col-form-label">Fecha de Compra</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="FechaCompra">
+            </div>
+          </div>
+          <script>
+          var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            
+            if(dd<10) {
+                dd = '0'+dd
+            } 
+            
+            if(mm<10) {
+                mm = '0'+mm
+            } 
+            
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("FechaCompra").value = today;</script>
+            <div class="form-group row">
+              <label for="CodMedicamento" class="col-sm-2 col-form-label">Código Medicamento</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="CodMedicamento" placeholder="234325235232">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success">Agregar</button>
+            </form>
+  </div>
+{% endblock %}

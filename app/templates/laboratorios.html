@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Laboratorios</h2>
+        <!-- filtros-->
+        <p>
+          <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Filtrar por
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample" style="margin-bottom: 10px;">
+          <div class="card card-body" style="width: 90%;">
+              <!-- aqui empieza-->
+              <form role="form"  action="/formularios" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                              <label for="NombreLab">Nombre</label>
+                                              <input type="text" class="form-control" id="NombreLab" onkeyup="myFunction()" placeholder="Nombre del laboratorio">
+                                            </div>
+                              </div>
+                  </form>
+              <!-- aqui termina -->
+          </div>
+        </div>
+        <!-- filtros -->
+    <table class="table table-striped table-hover table-bordered" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for laboratorio in laboratorios%}
+          <tr>
+            <td>{{laboratorio[0]}}</td>
+            <td>{{laboratorio[1]}}</td>
+            <td>{{laboratorio[2]}}</td>
+            <td>{{laboratorio[3]}}</td>
+            <td align="center"><a href="/laboratorio/{{laboratorio[0]}}"><img src="static/images/edit-draw-pencil.png" alt="Editar" height="16" width="16"></a>
+                </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+  </div>
+  <script>
+      function myFunction() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("NombreLab");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+  </script>
+{% endblock %}

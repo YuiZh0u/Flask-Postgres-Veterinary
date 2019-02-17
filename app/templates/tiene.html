@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Relacion entre cliente y mascota</h2>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">RUT</th>
+            <th scope="col">Mascota ID</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for cliente in tiene%}
+          <tr>
+            <th scope="row">{{cliente[0]}}</th>
+            <td>{{cliente[1]}}</td>
+            <td align="center"><a href="index.html"><img src="static/images/cancel-music.png" alt="Editar" height="16" width="16"></a>
+                </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+  </div>
+{% endblock %}

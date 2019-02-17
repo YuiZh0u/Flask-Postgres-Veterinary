@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Editar Procedimiento</h2>
+        <form role="form"  action="/procedimiento/{{procedimiento[0]}}" method="post" enctype="application/x-www-form-urlencoded">
+            <div class="form-group row">
+                    <label for="IDProcedimiento" class="col-sm-2 col-form-label">ID</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" name="IDProcedimiento" value="{{procedimiento[0]}}">
+                    </div>
+                  </div>
+            <div class="form-group row">
+                    <label for="NombreProcedimiento" class="col-sm-2 col-form-label">Nombre del procedimiento</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="NombreProcedimiento" value="{{procedimiento[1]}}">
+                    </div>
+                  </div>
+            <div class="form-group row">
+              <label for="DescAtencion" class="col-sm-2 col-form-label">Descripción</label>
+              <div class="col-sm-10">
+                <textarea type="text" class="form-control" name="DescAtencion" rows="3">{{procedimiento[2]}}</textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success">Editar</button>
+            </form>
+  </div>
+{% endblock %}

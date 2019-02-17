@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Editar Mascota</h2>
+        <form role="form" action="/mascota/{{mascota[0]}}" method="post" enctype="application/x-www-form-urlencoded">
+          <h4>Mascota</h4>
+          <div class="form-group row">
+            <label for="FechaRegistro" class="col-sm-2 col-form-label">Fecha de Registro</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" name="FechaRegistro" value="{{mascota[5]}}">
+            </div>
+          </div>
+            <div class="form-group row">
+                <label for="IDMascota" class="col-sm-2 col-form-label">ID</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" name="IDMascota" value="{{mascota[0]}}">
+                </div>
+              </div>
+            <div class="form-group row">
+              <label for="NombreMascota" class="col-sm-2 col-form-label">Nombre</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="NombreMascota" value="{{mascota[1]}}">
+              </div>
+            </div>
+              <div class="form-group row">
+                <label for="SexoMascota" class="col-sm-2 col-form-label">Sexo</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="SexoMascota" value="{{mascota[2]}}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="TipoMascota" class="col-sm-2 col-form-label">Animal</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="TipoMascota" value="{{mascota[3]}}">
+                </div>
+              </div>
+            <div class="form-group row">
+              <label for="RazaMascota" class="col-sm-2 col-form-label">Raza</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="RazaMascota" value="{{mascota[4]}}">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success">Editar</button> 
+            </form>
+  </div>
+{% endblock %}

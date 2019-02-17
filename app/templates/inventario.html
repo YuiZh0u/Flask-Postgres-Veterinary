@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-wrapper" class="container-fluid">
+        <h2>Inventario <a class="btn btn-success" href="/agregarmedicamento" role="button">Agregar medicamento</a></h2>
+                <!-- filtros-->
+                <p>
+                    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                      Filtrar por
+                    </button>
+                  </p>
+                  <div class="collapse" id="collapseExample" style="margin-bottom: 10px;">
+                    <div class="card card-body" style="width: 100%;">
+                        <!-- aqui empieza-->
+                        <form role="form"  action="/formularios" method="post" enctype="application/x-www-form-urlencoded">
+                            <div class="form-row">
+                                    <div class="form-group col-md-2">
+                                            <label for="CodigoMed">Código</label>
+                                            <input type="text" class="form-control" id="CodigoMed" onkeyup="myFunction()" placeholder="Código de barra">
+                                          </div>
+                                          <div class="form-group col-md-2">
+                                              <label for="NombreMed">Nombre</label>
+                                              <input type="text" class="form-control" id="NombreMed" onkeyup="myFunction2()" placeholder="Nombre del medicamento">
+                                            </div>
+                                          <div class="form-group col-md-2">
+                                                <label for="CantMed">Cantidad</label>
+                                                <select id="CantMed" onchange="myFunction3()" class="form-control">
+                                                  <option selected>Elegir</option>
+                                                  {%for cantidad in cantidads%}
+                                                  <option value="{{cantidad[0]}}">{{cantidad[0]}}</option>
+                                                  {%endfor%}
+                                                </select>
+                                              </div>
+                                                <div class="form-group col-md-2">
+                                                    <label for="TamMed">Tamaño</label>
+                                                    <select id="TamMed" onchange="myFunction4()" class="form-control">
+                                                      <option selected>Elegir</option>
+                                                      {%for tamano in tamanos%}
+                                                      <option value="{{tamano[0]}}">{{tamano[0]}}</option>
+                                                      {%endfor%}
+                                                    </select>
+                                                  </div>
+                                                  <div class="form-group col-md-2">
+                                                      <label for="NombreLab">Laboratorio</label>
+                                                      <input type="text" class="form-control" id="NombreLab" onkeyup="myFunction5()" placeholder="Nombre del Laboratorio">
+                                                    </div>
+                                                  <div class="form-group col-md-2">
+                                                    <label for="TipoMed">Tipo</label>
+                                                    <select id="TipoMed" onchange="myFunction6()" class="form-control">
+                                                      <option selected>Elegir</option>
+                                                      {%for tipo in tipos%}
+                                                      <option value="{{tipo[0]}}">{{tipo[0]}}</option>
+                                                      {%endfor%}
+                                                    </select>
+                                                  </div>
+                                        </div>
+                            </form>
+                        <!-- aqui termina -->
+                    </div>
+                  </div>
+                  <!-- filtros -->
+    <table class="table table-striped table-hover table-bordered" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Tamaño</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Laboratorio</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for inventario in medicamentos%}
+          <tr>
+            <td>{{inventario[0]}}</td>
+            <td>{{inventario[1]}}</td>
+            <td>{{inventario[2]}}</td>
+            <td>{{inventario[3]}}</td>
+            <td>{{inventario[4]}}</td>
+            <td>{{inventario[5]}}</td>
+            <td align="center"><a href="/inventario/{{inventario[0]}}"><img src="static/images/edit-draw-pencil.png" alt="Editar" height="16" width="16"></a>
+                <a href="/inventarioborrar/{{inventario[0]}}"><img src="static/images/cancel-music.png" alt="Eliminar" height="16" width="16"></a> 
+                </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+  </div>
+  <script>
+    function myFunction() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("CodigoMed");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction2() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("NombreMed");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction3() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("CantMed");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction4() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("TamMed");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction5() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("NombreLab");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[5];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+    function myFunction6() {
+      // Declare variables 
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("TipoMed");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[4];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+  </script>
+{% endblock %}
